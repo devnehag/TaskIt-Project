@@ -1,0 +1,63 @@
+<!-- task-list.component.html -->
+
+<div class="task-list-container">
+  <h1>Task List</h1>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter">
+      <label>Status:</label>
+      <select [(ngModel)]="selectedStatus">
+        <option value="all">All</option>
+        <option value="todo">To Do</option>
+        <option value="completed">Completed</option>
+        <option value="inprogress">In Progress</option>
+      </select>
+    </div>
+    <div class="filter">
+      <label>Priority:</label>
+      <select [(ngModel)]="selectedPriority">
+        <option value="all">All</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </div>
+    <div class="filter">
+      <label>Date:</label>
+      <input type="date" [(ngModel)]="selectedDate">
+    </div>
+  </div>
+
+  <!-- Add New Task button -->
+  <button class="add-task-button" (click)="openAddTaskForm()">Add New Task</button>
+  <!-- conditionally render the AddTaskComponent based on the isAddTaskFormVisible flag -->
+  <app-add-task *ngIf="isAddTaskFormVisible"></app-add-task>
+
+  <!-- Task List Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of filteredTasks; let i = index">
+        <td>{{ task.title }}</td>
+        <td>{{ task.dueDate | date }}</td>
+        <td>{{ task.priority }}</td>
+        <td>{{ task.status }}</td>
+        <td>
+          <!-- <button (click)="editTask(i)">Edit</button> -->
+          <button>Edit</button>
+          <!-- <button (click)="deleteTask(i)">Delete</button> -->
+          <button>Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
